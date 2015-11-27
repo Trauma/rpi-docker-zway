@@ -1,0 +1,8 @@
+#/bin/sh
+upgrade_zway="no"
+ZWAY_DIR=x
+if [[ ! -d $ZWAY_DIR ]]; then
+	echo "no upgrade"
+else
+	echo "z-way-server new installation"
+fi

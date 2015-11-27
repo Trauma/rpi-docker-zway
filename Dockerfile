@@ -1,11 +1,15 @@
 From hypriot/rpi-node
-MAINTAINER Johannes Hertel
+MAINTAINER Geir Gullestad Pettersen
+RUN apt-get -y update
+RUN apt-get -qy install sharutils tzdata gawk libavahi-compat-libdnssd-dev wget libarchive-dev
+RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
+RUN mkdir -p /etc/z-way 
 
-RUN apt-get update && apt-get -y install wget
-RUN mkdir /etc/z-way && touch /etc/z-way/box_type && wget -q -O - https://raw.githubusercontent.com/geirgp/rpi-docker-zway/master/install | bash
+RUN wget -O /tmp/z-way-server.tgz -q http://razberry.z-wave.me/z-way-server/z-way-server-RaspberryPiXTools-v2.1.2-rc17-44-gd59bf28.tgz && echo "v2.1.2-rc17-44-gd59bf28" > /etc/z-way/VERSION
 
-#VOLUME ["/opt/z-way-server"] 
+ADD start-zway.sh /bin/start-zway 
+ADD install.sh /bin/install-zway 
+#RUN touch /etc/z-way/box_type 
+#RUN echo "razberry" > /etc/z-way/box_type
 
-
-
-
+VOLUME ["/opt"] 

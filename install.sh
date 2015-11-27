@@ -1,7 +1,7 @@
 #!/bin/bash
-# installer zway to raspberry
+# install zway to raspberry
 #
-# Copied from http://http://razberry.z-wave.me/install & changed version from 2.1.1 to 2.1.2-rc17
+# Modified for docker, original from from http://http://razberry.z-wave.me/install
 
 INSTALL_DIR=/opt
 ZWAY_DIR=$INSTALL_DIR/z-way-server
@@ -60,22 +60,9 @@ else
 fi
 
 ##### The percentage of updates #####
-write_upi "20%\nRemoving MathKernel"
-#####################################
-
-echo "Removing MathKernel"
-# In raspbian 2014-01-07 in init.d script error, it does not allow add new scripts to the startup
-apt-get -y remove wolfram-engine
-
-##### The percentage of updates #####
 write_upi "30%\nInstalling additional libraries"
 #####################################
 
-echo "Installing additional libraries"
-apt-get -y update
-apt-get -qy install sharutils tzdata gawk
-echo "Installing additional libraries for HomeKit"
-apt-get -qy install libavahi-compat-libdnssd-dev
 
 if [[ ! -e /usr/lib/arm-linux-gnueabihf/libssl.so ]]
 	then
@@ -94,14 +81,7 @@ fi
 ##### The percentage of updates #####
 write_upi "40%\nGetting Z-Way for Raspberry Pi"
 #####################################
-
-FILE=`basename z-way-server/z-way-server-RaspberryPiXTools-v2.1.2-rc17.tgz`
-if [[ -e $TEMP_DIR/$FILE ]]; then
-	echo "Removing duplicate of z-way installer"
-	rm -rf $TEMP_DIR/$FILE
-fi
-echo "Getting Z-Way for Raspberry Pi and installing"
-wget -4 http://razberry.z-wave.me/z-way-server/z-way-server-RaspberryPiXTools-v2.1.2-rc17.tgz -P $TEMP_DIR/
+FILE=`basename z-way-server/z-way-server.tgz`
 
 ##### The percentage of updates #####
 write_upi "50%\nExtracting new z-way-server"
@@ -109,6 +89,7 @@ write_upi "50%\nExtracting new z-way-server"
 
 # remove z-way-server if exist
 rm -rf $TEMP_DIR/z-way-server
+
 # Extracting z-way-server
 echo "Extracting new z-way-server"
 tar -zxf $TEMP_DIR/$FILE -C $TEMP_DIR
@@ -140,6 +121,7 @@ if [[ "$?" -eq "0" ]]; then
 		echo "Making backup of previous version of Z-Way in $TMP_ZWAY_DIR"
 		mv $ZWAY_DIR $TMP_ZWAY_DIR
 		mv $TEMP_DIR/z-way-server $INSTALL_DIR/
+
 
 		# Copy old configuration files to the new location
 		echo "Copying settings"
