@@ -31,25 +31,25 @@ then
 fi
 
 # Accept EULA
-if [[ "$BOXED" != "yes" ]]
-then
-	echo "Do you accept Z-Wave.Me licence agreement?"
-	echo "Please read it on Z-Wave.Me web site: http://razberry.z-wave.me/docs/ZWAYEULA.pdf"
-	while true
-	do
-		echo -n "yes/no: "
-		read ANSWER < /dev/tty
-		case $ANSWER in
-			yes)
-				break
-				;;
-			no)
-				exit 1
-				;;
-		esac
-		echo "Please answer yes or no"
-	done
-fi
+# if [[ "$BOXED" != "yes" ]]
+# then
+# 	echo "Do you accept Z-Wave.Me licence agreement?"
+# 	echo "Please read it on Z-Wave.Me web site: http://razberry.z-wave.me/docs/ZWAYEULA.pdf"
+# 	while true
+# 	do
+# 		echo -n "yes/no: "
+# 		read ANSWER < /dev/tty
+# 		case $ANSWER in
+# 			yes)
+# 				break
+# 				;;
+# 			no)
+# 				exit 1
+# 				;;
+# 		esac
+# 		echo "Please answer yes or no"
+# 	done
+# fi
 
 # Check if Z-Way was already installed in /opt/z-way-server
 upgrade_zway="no"
@@ -134,7 +134,7 @@ if [[ "$?" -eq "0" ]]; then
 			then
 			cp $TMP_ZWAY_DIR/automation/.syscommand $ZWAY_DIR/automation/.syscommand
 		fi
-		
+
 		if [[ -d $TMP_ZWAY_DIR/automation/storage ]]
 			then
 			rm -Rf $ZWAY_DIR/automation/storage
@@ -176,8 +176,8 @@ echo "Creating Z-Way startup script"
 echo '#! /bin/sh
 ### BEGIN INIT INFO
 # Provides:		  z-way-server
-# Required-Start:	
-# Required-Stop:	 
+# Required-Start:
+# Required-Stop:
 # Default-Start:	 2 3 4 5
 # Default-Stop:	  0 1 6
 # Short-Description: RaZberry Z-Wave service
@@ -304,7 +304,7 @@ esac
 ' > /etc/init.d/zbw_autosetup
 	chmod +x /etc/init.d/zbw_autosetup
 	/etc/init.d/zbw_autosetup start
-else 
+else
 	# Update zbw_connect to new version
 	cd /etc/init.d/
 	./zbw_connect stop
@@ -422,7 +422,7 @@ fi
 # Installing webserver mongoose for webif
 tar -zxf $TEMP_DIR/mongoose.pkg.rPi.tgz -C /
 
-# Adding webserver to autostart 
+# Adding webserver to autostart
 echo "Adding mongoose to autostart"
 update-rc.d mongoose defaults
 
@@ -442,7 +442,7 @@ then
 	rm /tmp/zway_install_cmdline.txt /tmp/zway_install_inittab
 	# Starting z-way-server mongoose
 	echo "Starting z-way-server"
-	/etc/init.d/z-way-server start	
+	/etc/init.d/z-way-server start
 else
 	echo "Preparing AMA0 interface:"
 	echo " removing 'console=ttyAMA0,115200' and 'kgdboc=ttyAMA0,115200' from kernel command line (/boot/cmdline.txt)"
@@ -454,30 +454,30 @@ fi
 
 # Make sure to save changes
 sync
-	
+
 # Subscribe user to news
-if [[ "$BOXED" != "yes" ]]
-then
-	echo "Do you want to receive emails with news about RaZberry project?"
-	echo "! Please subscribe again if you did it before 30.03.2013"
-	while true
-	do
-		echo -n "yes/no: "
-		read ANSWER < /dev/tty
-		case $ANSWER in
-			yes)
-				echo -n "Enter your email address: "
-				read EMAIL < /dev/tty
-				curl -d "email=$EMAIL" http://razberry.z-wave.me/subscribe.php
-				break
-				;;
-			no)
-				break
-				;;
-		esac
-		echo "Please answer yes or no"
-	done
-fi
+# if [[ "$BOXED" != "yes" ]]
+# then
+# 	echo "Do you want to receive emails with news about RaZberry project?"
+# 	echo "! Please subscribe again if you did it before 30.03.2013"
+# 	while true
+# 	do
+# 		echo -n "yes/no: "
+# 		read ANSWER < /dev/tty
+# 		case $ANSWER in
+# 			yes)
+# 				echo -n "Enter your email address: "
+# 				read EMAIL < /dev/tty
+# 				curl -d "email=$EMAIL" http://razberry.z-wave.me/subscribe.php
+# 				break
+# 				;;
+# 			no)
+# 				break
+# 				;;
+# 		esac
+# 		echo "Please answer yes or no"
+# 	done
+# fi
 
 echo "Thank you for using RaZberry!"
 
