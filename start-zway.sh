@@ -2,7 +2,7 @@
 
 ZWAY_INIT=/etc/init.d/z-way-server
 
-if [[ ! -f $ZWAY_INIT ]]
+if [[ -f $ZWAY_INIT ]]
   then
     /etc/init.d/z-way-server start
     /bin/sh
