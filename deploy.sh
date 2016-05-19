@@ -20,7 +20,7 @@ container="zway"
 image="tromatik/rpi-docker-zway:latest"
 
 docker inspect $image > /dev/null 2>&1
-if [[ $? -eq 0 ]]
+if [[ $? -eq 1 ]]
   then
     echo "Building $image..."
     docker build -t $image .
@@ -40,7 +40,7 @@ docker create --name=$container \
       -v $(pwd)/z-way-server/:/opt/z-way-server/ \
       $image
 
-read -t 5 -p "Do you want to start "$container" container? [Y/n] (Timeout 5 sec.) : " item
+read -p "Do you want to start "$container" container? [Y/n] : " item
 case "$item" in
  y|Y) docker start $container;;
  n|N) exit 0;;
