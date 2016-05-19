@@ -168,7 +168,7 @@ else
 fi
 
 mkdir -p /etc/z-way
-echo "v2.1.2-rc17" > /etc/z-way/VERSION
+echo "v2.1.2" > /etc/z-way/VERSION
 echo "razberry" > /etc/z-way/box_type
 
 # Create Z-Way startup script
