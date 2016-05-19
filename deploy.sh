@@ -19,7 +19,7 @@ fi
 container="zway"
 image="tromatik/rpi-docker-zway:latest"
 
-docker image $image > /dev/null 2>&1
+docker inspect $image > /dev/null 2>&1
 if [[ $? -eq 0 ]]
   then
     echo "Building $image..."
