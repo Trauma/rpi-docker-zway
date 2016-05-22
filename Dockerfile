@@ -4,11 +4,11 @@ MAINTAINER Thomas Dannenmüller <tromatik@gmail.com>
 
 RUN apt-get -y update && \
     apt-get -y install --no-install-recommends wget && \
-    apt-get clean
-
-RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
-
-RUN wget -q -O - razberry.z-wave.me/install | bash
+    apt-get clean && \
+    ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12 && \
+    touch /etc/z-way/box_type && \
+    echo "razberry" > /etc/z-way/box_type && \
+    wget -q -O - razberry.z-wave.me/install | bash
 
 ADD start-zway.sh /bin/start-zway
 
