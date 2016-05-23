@@ -1,4 +1,4 @@
-FROM rpi-raspbian
+FROM sdhibit/rpi-raspbian
 
 MAINTAINER Thomas Dannenmuller
 
