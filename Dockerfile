@@ -1,4 +1,4 @@
-FROM hypriot/rpi-node
+FROM rpi-raspbian
 
 MAINTAINER Thomas Dannenmuller
 
