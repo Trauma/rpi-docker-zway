@@ -1,19 +1,27 @@
-FROM sdhibit/rpi-raspbian
+FROM hypriot/rpi-node
 
-MAINTAINER Thomas Dannenmüller <tromatik@gmail.com>
+MAINTAINER Thomas Dannenmuller
+
+ARG SERVER_IMAGE=z-way-server-RaspberryPiXTools-v2.2.2.tgz
 
 RUN apt-get -y update && \
-    apt-get -y install --no-install-recommends wget && \
-    apt-get clean && \
-    ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12 && \
-    touch /etc/z-way/box_type && \
-    echo "razberry" > /etc/z-way/box_type && \
-    wget -q -O - razberry.z-wave.me/install | bash
+    apt-get -yq install --no-install-recommends sharutils tzdata gawk libc-ares2 libavahi-compat-libdnssd-dev wget libarchive-dev && \
+    apt-get autoclean
 
-ADD start-zway.sh /bin/start-zway
+RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
+
+RUN mkdir -p /opt/z-way-server && \
+    cd /opt/z-way-server && \
+    wget razberry.z-wave.me/z-way-server/${SERVER_IMAGE} && \
+    tar --strip-components=1 -zxvf ${SERVER_IMAGE} && \
+    rm ${SERVER_IMAGE}
 
 VOLUME ["/opt"]
 
 EXPOSE 8083/tcp
 
-ENTRYPOINT ["/bin/start-zway"]
+ENV LD_LIBRARY_PATH=/opt/z-way-server/libs
+
+COPY entrypoint.sh /bin/entrypoint.sh
+
+CMD ["/bin/entrypoint.sh"]
