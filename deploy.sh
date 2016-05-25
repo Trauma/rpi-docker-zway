@@ -34,19 +34,13 @@ if [[ $? -eq 0 ]]
 fi
 
 echo "Creating $container container..."
-docker create --name=$container \
+docker run -d --name=$container \
       -p 8083:8083 \
       --device /dev/ttyAMA0:/dev/ttyAMA0 \
       -v $(pwd)/z-way-server/:/opt/z-way-server/ \
       $image
 
-read -p "Do you want to start "$container" container? [Y/n] : " item
-case "$item" in
- y|Y) docker start $container;;
- n|N) exit 0;;
- *) docker start $container;;
-esac
-
 echo "Please wait..."
 sleep 5
 docker ps -l
+exit 0

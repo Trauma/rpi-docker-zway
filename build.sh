@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t tromatik/rpi-docker-zway .
+docker build $1 -t tromatik/rpi-docker-zway .
