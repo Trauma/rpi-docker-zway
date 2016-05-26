@@ -15,15 +15,15 @@ cd rpi-docker-zway
 ```
 ### Custom build :
 
-You can choose your z-way server version on build. Just pick the file name of the desired version from this url (z-way-server-RaspberryPiXTools-X.X.X.tgz) :
-http://razberry.z-wave.me/z-way-server/
+You can choose your z-way server version on build. Just pick the file name of the desired version from this [url](http://razberry.z-wave.me/z-way-server/) ( *file name ex.* z-way-server-RaspberryPiXTools-X.X.X.tgz ) :
+
 
 ```
 git clone https://github.com/trauma/rpi-docker-zway.git
 cd rpi-docker-zway
 docker build --build-arg="file_name_of_desired_zway_version" -t "your_repo"/rpi-docker-zway .
 ```
-#### Example ( and default behavior ):
+#### Example ( and default behavior ) :
 ```
 docker build --build-arg=z-way-server-RaspberryPiXTools-v2.2.2.tgz -t tromatik/rpi-docker-zway .
 ```

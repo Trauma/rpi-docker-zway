@@ -13,7 +13,7 @@ RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnuea
 RUN mkdir -p /opt/config && \
     wget -q razberry.z-wave.me/z-way-server/${SERVER_IMAGE} && \
     tar -zxvf ${SERVER_IMAGE} -C /opt/ && \
-    cp /opt/z-way-server/config.xml /opt/config/config.xml
+    cp /opt/z-way-server/config.xml /opt/config/config.xml && \
     rm ${SERVER_IMAGE}
 
 VOLUME ["/opt/config"]
