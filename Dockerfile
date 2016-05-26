@@ -10,17 +10,19 @@ RUN apt-get -y update && \
 
 RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
 
-RUN mkdir -p /opt && \
+RUN mkdir -p /opt/config && \
     wget -q razberry.z-wave.me/z-way-server/${SERVER_IMAGE} && \
     tar -zxvf ${SERVER_IMAGE} -C /opt/ && \
+    cp /opt/z-way-server/config.xml /opt/config/config.xml
     rm ${SERVER_IMAGE}
 
-VOLUME ["/opt"]
+VOLUME ["/opt/config"]
 
 EXPOSE 8083/tcp
 
 ENV LD_LIBRARY_PATH=/opt/z-way-server/libs
 
-COPY entrypoint.sh /bin/entrypoint.sh
 
-ENTRYPOINT ["/bin/entrypoint.sh"]
+CMD ["--config-file=/opt/z-way-server/config.xml","--log-file=/dev/stdout"]
+
+ENTRYPOINT ["/opt/z-way-server/z-way-server"]
