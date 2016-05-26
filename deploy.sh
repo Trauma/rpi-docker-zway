@@ -34,11 +34,12 @@ if [[ $? -eq 0 ]]
 fi
 
 echo "Creating $container container..."
-docker run -d -P \
+docker run -d \
+      -p 8083:8083 \
       --name=$container \
       --restart=always \
       --device /dev/ttyAMA0:/dev/ttyAMA0 \
-      -v $(pwd)/config/:/opt/config/ \
+      -v $(pwd)/config/:/opt/z-way-server/automation/storage/ \
       $image
 
 echo "Please wait..."
