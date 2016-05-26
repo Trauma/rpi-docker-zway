@@ -13,7 +13,7 @@ git clone https://github.com/trauma/rpi-docker-zway.git
 cd rpi-docker-zway
 ./build.sh
 ```
-### Custom build:
+### Custom build :
 
 You can choose your z-way server version on build. Just pick the file name of the desired version from this url (z-way-server-RaspberryPiXTools-X.X.X.tgz) :
 http://razberry.z-wave.me/z-way-server/
@@ -29,8 +29,18 @@ docker build --build-arg=z-way-server-RaspberryPiXTools-v2.2.2.tgz -t tromatik/r
 ```
 ## Running it
 
+### Deployment script :
+
+If you use the deployment script the ```config``` volume will be mounted to the current directory.
+
 ```
 git clone https://github.com/trauma/rpi-docker-zway.git
 cd rpi-docker-zway
 sudo ./deploy.sh
+```
+
+### Custom run :
+
+```
+docker run -d -p "your_tcp_port":8083 --device /dev/ttyAMA0:/dev/ttyAMA0 -v "path_to_your_volume_mount":/opt/config/ tromatik/rpi-docker-zway:latest
 ```
