@@ -1,4 +1,4 @@
-FROM sdhibit/rpi-raspbian
+FROM resin/rpi-raspbian
 
 MAINTAINER Thomas Dannenmuller
 
@@ -15,9 +15,9 @@ RUN mkdir -p /opt && \
     tar -zxvf ${SERVER_IMAGE} -C /opt/ && \
     rm ${SERVER_IMAGE}
 
-VOLUME ["/opt/z-way-server/automation/storage/"]
-
 EXPOSE 8083/tcp
+
+VOLUME /opt/z-way-server/automation/storage
 
 ENV LD_LIBRARY_PATH=/opt/z-way-server/libs
 

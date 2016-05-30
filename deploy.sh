@@ -35,11 +35,12 @@ fi
 
 echo "Creating $container container..."
 docker run -d \
+      -e VIRTUAL_HOST=www.pallut.xyz \
+      -e VIRTUAL_PORT=8083 \
       -p 8083:8083 \
       --name=$container \
       --restart=always \
       --device /dev/ttyAMA0:/dev/ttyAMA0 \
-      -v $(pwd)/config/:/opt/z-way-server/automation/storage/ \
       $image
 
 echo "Please wait..."
