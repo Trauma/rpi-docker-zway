@@ -36,9 +36,6 @@ fi
 echo "Creating $container container..."
 docker run -d \
       -p 8083:8083 \
-      -l traefik.backend=www \
-      -l traefik.frontend.rule=Host:www.pallut.xyz \
-      -l traefik.frontend.passHostHeader=true \
       --name=$container \
       --restart=always \
       --device /dev/ttyAMA0:/dev/ttyAMA0 \
