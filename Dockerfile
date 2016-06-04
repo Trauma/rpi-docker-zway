@@ -6,7 +6,8 @@ ARG SERVER_IMAGE=z-way-server-RaspberryPiXTools-v2.2.2.tgz
 
 RUN apt-get -y update && \
     apt-get -yq install --no-install-recommends sharutils tzdata gawk libc-ares2 libavahi-compat-libdnssd-dev libarchive-dev libcurl3 libssl1.0.0 wget && \
-    apt-get autoclean
+    apt-get clean && \
+    rm -r /var/lib/apt/lists/*
 
 RUN ln -s /usr/lib/arm-linux-gnueabihf/libarchive.so.13 /usr/lib/arm-linux-gnueabihf/libarchive.so.12
 
